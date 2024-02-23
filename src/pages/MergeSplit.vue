@@ -4,7 +4,7 @@ import { useQuasar } from 'quasar';
 import usePdf from 'src/composables/usePdf';
 
 const { notify } = useQuasar();
-const { mergePdfs, downloadPdf } = usePdf();
+const { mergeHalfPages, downloadPdf } = usePdf();
 const isLoading = ref(false);
 const pdfFiles = ref<File[]>([]);
 const dialog = ref(false);
@@ -15,7 +15,7 @@ const mergePDFs = async () => {
 
   isLoading.value = true;
 
-  mergedPdfFile.value = await mergePdfs(pdfFiles.value);
+  mergedPdfFile.value = await mergeHalfPages(pdfFiles.value[0], pdfFiles.value[1]);
 
   if (mergedPdfFile.value) downloadPdf(mergedPdfFile.value);
 
