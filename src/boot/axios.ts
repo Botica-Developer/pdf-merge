@@ -1,6 +1,18 @@
 import { boot } from 'quasar/wrappers';
 import axios, { AxiosInstance } from 'axios';
 
+/**
+ * Declara tipos personalizados para Vue 3 Runtime Core
+ * @module @vue/runtime-core
+ *
+ * @description
+ * Extiende la interfaz ComponentCustomProperties de Vue para incluir
+ * instancias de Axios como propiedades personalizadas globales.
+ *
+ * Las propiedades agregadas son:
+ * @property {AxiosInstance} $axios - Instancia principal de Axios
+ * @property {AxiosInstance} $api - Instancia secundaria de Axios para la API
+ */
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
     $axios: AxiosInstance;
@@ -8,24 +20,23 @@ declare module '@vue/runtime-core' {
   }
 }
 
-// Be careful when using SSR for cross-request state pollution
-// due to creating a Singleton instance here;
-// If any client changes this (global) instance, it might be a
-// good idea to move this instance creation inside of the
-// "export default () => {}" function below (which runs individually
-// for each client)
 const api = axios.create({ baseURL: 'https://api.example.com' });
 
+/**
+ * Configura el cliente HTTP Axios y la instancia de API para la aplicación Vue
+ *
+ * @param param0 Objeto de configuración del boot de Quasar que contiene la instancia de la aplicación Vue
+ * @param param0.app Instancia de la aplicación Vue
+ *
+ * @remarks
+ * Esta función de arranque registra dos propiedades globales en la aplicación:
+ * - `$axios`: La instancia de Axios para realizar peticiones HTTP
+ * - `$api`: La instancia configurada de la API
+ */
 export default boot(({ app }) => {
-  // for use inside Vue files (Options API) through this.$axios and this.$api
-
   app.config.globalProperties.$axios = axios;
-  // ^ ^ ^ this will allow you to use this.$axios (for Vue Options API form)
-  //       so you won't necessarily have to import axios in each vue file
 
   app.config.globalProperties.$api = api;
-  // ^ ^ ^ this will allow you to use this.$api (for Vue Options API form)
-  //       so you can easily perform requests against your app's API
 });
 
 export { api };
