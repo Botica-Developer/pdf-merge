@@ -14,8 +14,8 @@ Asegúrate de tener instalado lo siguiente en tu máquina:
 1. Clona este repositorio:
 
    ```bash
-   git clone https://github.com/usuario/mi-proyecto.git
-   cd mi-proyecto
+   git clone https://github.com/Botica-Developer/pdf-merge.git
+   cd pdf-merge
    ```
 
 2. Instala las dependencias:
