@@ -8,7 +8,6 @@ const routes: RouteRecordRaw[] = [
     children: [
       { path: '', name: 'redirect', redirect: { name: 'merge' } }, // Redirección a la ruta 'merge'
       { path: 'merge', name: 'merge', component: () => import('pages/IndexPage.vue') }, // Ruta para la página de fusión
-      { path: 'split', name: 'split', component: () => import('pages/MergeSplit.vue') }, // Ruta para la página de división
     ],
   },
   {
